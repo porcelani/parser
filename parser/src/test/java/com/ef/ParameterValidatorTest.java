@@ -86,4 +86,12 @@ public class ParameterValidatorTest {
 
         parameterValidator.validate(args);
     }
+
+    @Test
+    public void shouldNotThrowWhenUsedCorrectArgumentsInDifferentOrder() throws Exception {
+        String[] args = {"--threshold=100", "--duration=hourly", "--startDate=2017-01-01.13:00:00", "--accesslog=access.log"};
+
+        parameterValidator.validate(args);
+    }
+
 }
