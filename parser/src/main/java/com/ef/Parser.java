@@ -1,11 +1,20 @@
 package com.ef;
 
 
+import static java.lang.System.out;
+
 public class Parser {
+
     public Parser() {
     }
 
     public static void main(String[] args) {
-        System.out.println("Not implement yet");
+
+        ParameterValidator parameterValidator = new ParameterValidator();
+        try {
+            parameterValidator.validate(args);
+        } catch (ParameterValidationException e) {
+            out.println(e.getMessage());
+        }
     }
 }
