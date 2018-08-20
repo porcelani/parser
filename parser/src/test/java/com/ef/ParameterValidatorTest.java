@@ -55,4 +55,35 @@ public class ParameterValidatorTest {
 
         parameterValidator.validate(args);
     }
+
+    @Test
+    public void shouldThrowWhenForgetStartDateArguments() throws Exception {
+        thrown.expect(ParameterValidationException.class);
+        thrown.expectMessage(is("\"Parser\" require --startDate argument.\n" + USAGE_MESSAGE));
+
+        String[] args = {"--accesslog=access.log", "--start=2017-01-01.13:00:00", "--duration=hourly", "--threshold=100"};
+
+        parameterValidator.validate(args);
+    }
+
+
+    @Test
+    public void shouldThrowWhenForgetDurationArguments() throws Exception {
+        thrown.expect(ParameterValidationException.class);
+        thrown.expectMessage(is("\"Parser\" require --duration argument.\n" + USAGE_MESSAGE));
+
+        String[] args = {"--accesslog=access.log", "--startDate=2017-01-01.13:00:00", "--dur=hourly", "--threshold=100"};
+
+        parameterValidator.validate(args);
+    }
+
+    @Test
+    public void shouldThrowWhenForgetThresholdArguments() throws Exception {
+        thrown.expect(ParameterValidationException.class);
+        thrown.expectMessage(is("\"Parser\" require --threshold argument.\n" + USAGE_MESSAGE));
+
+        String[] args = {"--accesslog=access.log", "--startDate=2017-01-01.13:00:00", "--duration=hourly", "--thre=100"};
+
+        parameterValidator.validate(args);
+    }
 }

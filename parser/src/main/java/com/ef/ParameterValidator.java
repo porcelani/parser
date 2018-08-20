@@ -19,5 +19,17 @@ public class ParameterValidator {
             throw new ParameterValidationException("\"Parser\" require --accesslog argument.\n");
         }
 
+        if (!arg[1].contains("startDate")) {
+            throw new ParameterValidationException("\"Parser\" require --startDate argument.\n");
+        }
+
+        if (!arg[2].contains("duration")) {
+            throw new ParameterValidationException("\"Parser\" require --duration argument.\n");
+        }
+
+        if (!arg[3].contains("threshold")) {
+            throw new ParameterValidationException("\"Parser\" require --threshold argument.\n");
+        }
+
     }
 }
