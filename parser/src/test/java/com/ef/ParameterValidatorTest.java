@@ -1,5 +1,6 @@
 package com.ef;
 
+import com.ef.model.ParameterValidator;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -66,6 +67,16 @@ public class ParameterValidatorTest {
         parameterValidator.validate(args);
     }
 
+    @Test
+    public void shouldThrowWhenUseWrongStartDateFormat() throws Exception {
+        thrown.expect(ParameterValidationException.class);
+        thrown.expectMessage(is("\"Parser\" require --startDate yyyy-MM-dd.HH:mm:ss format.\n" + USAGE_MESSAGE));
+
+        String[] args = {"--accesslog=access.log", "--startDate=2017-01-01", "--duration=hourly", "--thre=100"};
+
+        parameterValidator.validate(args);
+    }
+
 
     @Test
     public void shouldThrowWhenForgetDurationArguments() throws Exception {
@@ -78,11 +89,32 @@ public class ParameterValidatorTest {
     }
 
     @Test
+    public void shouldThrowWhenWrongDurationValue() throws Exception {
+        thrown.expect(ParameterValidationException.class);
+        thrown.expectMessage(is("\"Parser\" require --duration take only \"hourly\", \"daily\" as inputs.\n" + USAGE_MESSAGE));
+
+        String[] args = {"--accesslog=access.log", "--startDate=2017-01-01.13:00:00", "--duration=hour", "--threshold=100"};
+
+        parameterValidator.validate(args);
+    }
+
+
+    @Test
     public void shouldThrowWhenForgetThresholdArguments() throws Exception {
         thrown.expect(ParameterValidationException.class);
         thrown.expectMessage(is("\"Parser\" require --threshold argument.\n" + USAGE_MESSAGE));
 
         String[] args = {"--accesslog=access.log", "--startDate=2017-01-01.13:00:00", "--duration=hourly", "--thre=100"};
+
+        parameterValidator.validate(args);
+    }
+
+    @Test
+    public void shouldThrowWhenWrongThresholdValue() throws Exception {
+        thrown.expect(ParameterValidationException.class);
+        thrown.expectMessage(is("\"Parser\" require --threshold take only Integer as inputs.\n" + USAGE_MESSAGE));
+
+        String[] args = {"--accesslog=access.log", "--startDate=2017-01-01.13:00:00", "--duration=hourly", "--threshold=a123"};
 
         parameterValidator.validate(args);
     }

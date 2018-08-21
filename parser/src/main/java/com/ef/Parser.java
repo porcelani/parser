@@ -1,12 +1,15 @@
 package com.ef;
 
 
-import static java.lang.System.out;
+import com.ef.model.ParameterValidator;
+
+import java.util.logging.Logger;
+
+import static java.util.logging.Level.SEVERE;
+
 
 public class Parser {
-
-    public Parser() {
-    }
+    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
     public static void main(String[] args) {
 
@@ -14,7 +17,8 @@ public class Parser {
         try {
             parameterValidator.validate(args);
         } catch (ParameterValidationException e) {
-            out.println(e.getMessage());
+            LOGGER.log(SEVERE, e.getMessage());
         }
+
     }
 }

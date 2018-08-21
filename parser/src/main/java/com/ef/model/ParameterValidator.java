@@ -1,4 +1,7 @@
-package com.ef;
+package com.ef.model;
+
+import com.ef.ParameterValidationException;
+import com.ef.model.ParserParameters.ParserParametersBuilder;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -9,11 +12,7 @@ public class ParameterValidator {
     public static final int QUANTITY_OF_ARGUMENTS = 4;
 
 
-    public ParameterValidator() {
-
-    }
-
-    public void validate(String[] arguments) throws ParameterValidationException {
+    public ParserParameters validate(String[] arguments) throws ParameterValidationException {
 
         if (arguments.length != QUANTITY_OF_ARGUMENTS) {
             throw new ParameterValidationException("\"Parser\" requires exactly 4 arguments.\n");
@@ -21,21 +20,12 @@ public class ParameterValidator {
 
         HashMap<String, String> argumentMap = parameterMaps(arguments);
 
-        if (!argumentMap.containsKey("accesslog")) {
-            throw new ParameterValidationException("\"Parser\" require --accesslog argument.\n");
-        }
-
-        if (!argumentMap.containsKey("startDate")) {
-            throw new ParameterValidationException("\"Parser\" require --startDate argument.\n");
-        }
-
-        if (!argumentMap.containsKey("duration")) {
-            throw new ParameterValidationException("\"Parser\" require --duration argument.\n");
-        }
-
-        if (!argumentMap.containsKey("threshold")) {
-            throw new ParameterValidationException("\"Parser\" require --threshold argument.\n");
-        }
+        return ParserParametersBuilder.aParserParameters()
+                .withAccesslog(argumentMap.get("accesslog"))
+                .withStartDate(argumentMap.get("startDate"))
+                .withDuration(argumentMap.get("duration"))
+                .withThreshold(argumentMap.get("threshold"))
+                .build();
 
     }
 
