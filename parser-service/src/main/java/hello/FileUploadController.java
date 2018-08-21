@@ -53,11 +53,14 @@ public class FileUploadController {
     }
 
     @PostMapping("/")
-    public ResponseEntity handleFileUpload(@RequestParam("file") MultipartFile file) {
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes) {
 
         storageService.store(file);
+        redirectAttributes.addFlashAttribute("message",
+                "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        return ResponseEntity.ok("Sucesso");
+        return "redirect:/";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
