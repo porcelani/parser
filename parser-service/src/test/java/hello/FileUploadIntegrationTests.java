@@ -1,8 +1,8 @@
 package hello;
 
+import hello.storage.StorageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,8 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Matchers.any;
-
-import hello.storage.StorageService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -43,12 +41,9 @@ public class FileUploadIntegrationTests {
 
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 		map.add("file", resource);
-		ResponseEntity<String> response = this.restTemplate.postForEntity("/", map,
-				String.class);
+		ResponseEntity<String> response = this.restTemplate.postForEntity("/", map, String.class);
 
-		assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.FOUND);
-		assertThat(response.getHeaders().getLocation().toString())
-				.startsWith("http://localhost:" + this.port + "/");
+		assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
 		then(storageService).should().store(any(MultipartFile.class));
 	}
 
@@ -61,8 +56,7 @@ public class FileUploadIntegrationTests {
 				.getForEntity("/files/{filename}", String.class, "testupload.txt");
 
 		assertThat(response.getStatusCodeValue()).isEqualTo(200);
-		assertThat(response.getHeaders().getFirst(HttpHeaders.CONTENT_DISPOSITION))
-				.isEqualTo("attachment; filename=\"testupload.txt\"");
+		assertThat(response.getHeaders().getFirst(HttpHeaders.CONTENT_DISPOSITION)).isEqualTo("attachment; filename=\"testupload.txt\"");
 		assertThat(response.getBody()).isEqualTo("Spring Framework");
 	}
 

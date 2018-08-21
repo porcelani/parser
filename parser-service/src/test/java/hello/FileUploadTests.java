@@ -53,8 +53,7 @@ public class FileUploadTests {
         MockMultipartFile multipartFile = new MockMultipartFile("file", "test.txt",
                 "text/plain", "Spring Framework".getBytes());
         this.mvc.perform(fileUpload("/").file(multipartFile))
-                .andExpect(status().isFound())
-                .andExpect(header().string("Location", "/"));
+                .andExpect(status().isOk());
 
         then(this.storageService).should().store(multipartFile);
     }
