@@ -1,4 +1,4 @@
-package hello.storage;
+package parser.storage;
 
 import java.io.IOException;
 import java.io.InputStream;

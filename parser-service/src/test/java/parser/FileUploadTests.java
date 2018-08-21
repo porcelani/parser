@@ -1,4 +1,4 @@
-package hello;
+package parser;
 
 import java.nio.file.Paths;
 import java.util.stream.Stream;
@@ -23,8 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import hello.storage.StorageFileNotFoundException;
-import hello.storage.StorageService;
+import parser.storage.StorageFileNotFoundException;
+import parser.storage.StorageService;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc

@@ -1,4 +1,4 @@
-package hello.storage;
+package parser.storage;
 
 public class StorageException extends RuntimeException {
 
