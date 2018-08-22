@@ -4,41 +4,66 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
 public class Log {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String name;
+    private Date date;
+    private String ip;
+    private String request;
+    private Integer status;
+    private String agent;
 
-    private String email;
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getIp() {
+        return ip;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-    
-    
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getAgent() {
+        return agent;
+    }
+
+    public void setAgent(String agent) {
+        this.agent = agent;
+    }
 }
 
