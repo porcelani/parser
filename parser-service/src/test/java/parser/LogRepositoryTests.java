@@ -1,6 +1,7 @@
 package parser;
 
-import org.junit.Ignore;
+import org.joda.time.DateTime;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import parser.repository.LogRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.util.Lists.newArrayList;
@@ -20,30 +22,54 @@ import static org.assertj.core.util.Lists.newArrayList;
 public class LogRepositoryTests {
 
 
-    public static final String IP = "192.168.234.82";
+    public static final String IP_1 = "192.168.101.1";
+    public static final String IP_2 = "192.168.101.2";
     @Autowired
     private LogRepository logRepository;
 
 
-    @Ignore
+    @Before
+    public void setUp() {
+        logRepository.deleteAll();
+
+        Log logOfToday = new Log();
+        logOfToday.setIp(IP_1);
+        logOfToday.setDate(new Date());
+        logRepository.save(logOfToday);
+
+        Log log2OfToday = new Log();
+        log2OfToday.setIp(IP_1);
+        log2OfToday.setDate(new Date());
+        logRepository.save(log2OfToday);
+
+
+        DateTime dateTimeOfYesterday = new DateTime();
+        dateTimeOfYesterday = dateTimeOfYesterday.minusDays(1);
+        Log logOfyesterday = new Log();
+        logOfyesterday.setIp(IP_2);
+        logOfyesterday.setDate(dateTimeOfYesterday.toDate());
+        logRepository.save(logOfyesterday);
+    }
+
     @Test
     public void shouldParserLog() {
-        //Prepare
+        DateTime dateTime = new DateTime();
+        dateTime = dateTime.minusHours(1);
+        Date dateFrom = dateTime.toDate();
+        dateTime = dateTime.plusHours(1);
+        Date dateTo = dateTime.toDate();
 
-        Collection<Object> allActiveUsersNative = logRepository.findIPsThatModeMoreThanACertainNumberOfRequestsForAGivenTimePeriod();
+
+        Collection<Object> allActiveUsersNative = logRepository.findIPsThatModeMoreThanACertainNumberOfRequestsForAGivenTimePeriod(dateFrom, dateTo,2);
 
 
-        assertThat(newArrayList(allActiveUsersNative).size()).isEqualTo(10);
+        assertThat(newArrayList(allActiveUsersNative).size()).isEqualTo(1);
     }
 
     @Test
     public void shouldFindRequestsMadeByAGivenIP() {
-        Log log = new Log();
-        log.setIp(IP);
-        logRepository.save(log);
 
-
-        Collection<Log> allActiveUsersNative = logRepository.findRequestsMadeByAGivenIP(IP);
+        Collection<Log> allActiveUsersNative = logRepository.findRequestsMadeByAGivenIP(IP_2);
 
 
         ArrayList<Log> logs = newArrayList(allActiveUsersNative);
