@@ -30,7 +30,7 @@ public class ParameterValidator {
     }
 
     private HashMap<String, String> parameterMaps(String[] arguments) {
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<String, String>();
         for (String argument : arguments) {
             String parameter = argument.replaceAll(" ", "");
 
