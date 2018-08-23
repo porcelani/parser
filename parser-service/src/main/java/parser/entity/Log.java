@@ -1,17 +1,20 @@
 package parser.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class Log {
+    public static final String DATE_FORMAT_PARTTERN = "yyyy-MM-dd HH:mm:ss.SSS";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = DATE_FORMAT_PARTTERN)
     private Date date;
     private String ip;
     private String request;

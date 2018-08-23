@@ -12,8 +12,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Integer.valueOf;
+import static parser.entity.Log.DATE_FORMAT_PARTTERN;
 
 @Controller
 @RequestMapping(path = "/parser")
@@ -41,19 +46,29 @@ public class ParserController {
         String line;
         List<Log> list = new ArrayList<>();
         int count = 0;
-        while ((line = bufferedReader.readLine()) != null) {
-            count++;
-            Log n = new Log();
-            n.setAgent(line);
-            list.add(n);
+        try {
 
-            if (count % 1000 == 0) {
-                logRepository.saveAll(list);
-                list = new ArrayList<>();
+            while ((line = bufferedReader.readLine()) != null) {
+                count++;
+
+                String[] split = line.split("\\|");
+                Log newLog = new Log();
+                newLog.setDate(new SimpleDateFormat(DATE_FORMAT_PARTTERN).parse(split[0]));
+                newLog.setIp(split[1]);
+                newLog.setRequest(split[2]);
+                newLog.setStatus(valueOf(split[3]));
+                newLog.setAgent(split[4]);
+                list.add(newLog);
+
+                if (count % 1000 == 0) {
+                    logRepository.saveAll(list);
+                    list = new ArrayList<>();
+                }
             }
+            logRepository.saveAll(list);
+        } catch (ParseException e) {
+            return "Error";
         }
-        logRepository.saveAll(list);
-
 
         return "Saved";
     }
