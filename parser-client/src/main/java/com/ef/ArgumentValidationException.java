@@ -1,6 +1,6 @@
 package com.ef;
 
-public class ParameterValidationException extends Exception {
+public class ArgumentValidationException extends Exception {
 
     public static final String USAGE_MESSAGE = "\n" +
             "Usage:  java -cp \"parser.jar\" com.ef.Parser --accesslog=[/path/to/file.log] --startDate=[yyyy-MM-dd.HH:mm:ss] --duration=[hourly/daily] --threshold=[integer] \n" +
@@ -12,7 +12,7 @@ public class ParameterValidationException extends Exception {
             "--threshold            Can be an integer\n" +
             "";
 
-    public ParameterValidationException(String msg) {
+    public ArgumentValidationException(String msg) {
         super(msg + USAGE_MESSAGE);
     }
 

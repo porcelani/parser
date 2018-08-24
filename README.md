@@ -29,3 +29,8 @@ Reference
 ---
 - https://spring.io/guides/gs/consuming-rest/
 - https://spring.io/guides/gs/accessing-data-mysql/
+
+
+TODO
+---
+- ArgumentValidator inside the server;
