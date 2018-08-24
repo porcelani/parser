@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import parser.entity.Log;
-import parser.repository.LogRepository;
+import parser.log.LogRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;

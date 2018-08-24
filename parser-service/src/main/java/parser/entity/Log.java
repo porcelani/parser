@@ -13,8 +13,6 @@ public class Log {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = DATE_FORMAT_PARTTERN)
     private Date date;
     private String ip;
     private String request;

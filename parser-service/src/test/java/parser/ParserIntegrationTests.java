@@ -15,7 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
-import parser.repository.LogRepository;
+import parser.log.LogRepository;
+import parser.log.LogService;
 import parser.storage.StorageService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,6 +34,9 @@ public class ParserIntegrationTests {
     @Autowired
     private LogRepository logRepository;
 
+    @Autowired
+    private LogService logService;
+
     @MockBean
     private StorageService storageService;
 
@@ -45,19 +49,21 @@ public class ParserIntegrationTests {
     }
 
     @Test
-    public void shouldParserLog() throws Exception {
+    public void shouldParserLog() {
         ClassPathResource resource = new ClassPathResource("access.log", getClass());
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
         map.add("file", resource);
-        map.add("startDate", "");
-        map.add("duration", "");
-        map.add("threshold", "");
+        map.add("startDate", "2017-01-01.13:00:00");
+        map.add("duration", "hourly");
+        map.add("threshold", "1");
 
 
         ResponseEntity<String> response = this.restTemplate.postForEntity("/parser/", map, String.class);
 
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
+        //TODO
+        //assert response body
         then(storageService).should().store(any(MultipartFile.class));
         assertThat(newArrayList(logRepository.findAll()).size()).isEqualTo(10);
 

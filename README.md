@@ -21,6 +21,7 @@ mvn clean install
 Run
 ---
 ```
+docker-compose up -d
 cd dist
 sh run.sh
 ```
@@ -33,4 +34,7 @@ Reference
 
 TODO
 ---
+- parser.log.LogParserService.search 
+- In ParserTests include verify of RequestParam;
 - ArgumentValidator inside the server;
+...

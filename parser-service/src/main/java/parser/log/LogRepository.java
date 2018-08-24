@@ -1,4 +1,4 @@
-package parser.repository;
+package parser.log;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
