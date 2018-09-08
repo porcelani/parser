@@ -17,3 +17,5 @@ services:
     build: ./parser-service
     ports:
     - "8080:8080"
+    depends_on:
+    - "mysql"

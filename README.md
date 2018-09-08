@@ -1,9 +1,9 @@
-# wallethub-application
+# Parser Application
 
-[Test Instructions](Java_MySQL_Test_Instructions.md)
+[Requirements](requirements.md)
 
 
-Require
+Stack
 -------
 - Java8
 - Maven3
@@ -30,11 +30,3 @@ Reference
 ---
 - https://spring.io/guides/gs/consuming-rest/
 - https://spring.io/guides/gs/accessing-data-mysql/
-
-
-TODO
----
-- parser.log.LogParserService.search 
-- In ParserTests include verify of RequestParam;
-- ArgumentValidator inside the server;
-...
