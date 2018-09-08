@@ -55,12 +55,12 @@ public class LogRepositoryTests {
     public void shouldParserLog() {
         DateTime dateTime = new DateTime();
         dateTime = dateTime.minusHours(1);
-        Date dateFrom = dateTime.toDate();
+        Date startDate = dateTime.toDate();
         dateTime = dateTime.plusHours(1);
-        Date dateTo = dateTime.toDate();
+        Date endDate = dateTime.toDate();
 
 
-        Collection<Object> allActiveUsersNative = logRepository.findIPsThatModeMoreThanACertainNumberOfRequestsForAGivenTimePeriod(dateFrom, dateTo,2);
+        Collection<Object> allActiveUsersNative = logRepository.findIPsThatModeMoreThanACertainNumberOfRequestsForAGivenTimePeriod(startDate, endDate,2);
 
 
         assertThat(newArrayList(allActiveUsersNative).size()).isEqualTo(1);

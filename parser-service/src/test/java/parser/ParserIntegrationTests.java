@@ -45,14 +45,15 @@ public class ParserIntegrationTests {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @Test
     public void shouldParserLog() {
-        ClassPathResource resource = new ClassPathResource("access.log", getClass());
+        ClassPathResource file = new ClassPathResource("access.log", getClass());
+
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-        map.add("file", resource);
+        map.add("file", file);
         map.add("startDate", "2017-01-01.13:00:00");
         map.add("duration", "hourly");
         map.add("threshold", "1");
@@ -62,8 +63,6 @@ public class ParserIntegrationTests {
 
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
-        //TODO
-        //assert response body
         then(storageService).should().store(any(MultipartFile.class));
         assertThat(newArrayList(logRepository.findAll()).size()).isEqualTo(10);
 

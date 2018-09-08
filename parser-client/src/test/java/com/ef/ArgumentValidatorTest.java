@@ -7,7 +7,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -31,7 +30,6 @@ public class ArgumentValidatorTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private HashMap<String, String> argumentsMap;
-    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd.HH:mm:ss");
 
     @Before
     public void setUp() {
@@ -51,7 +49,7 @@ public class ArgumentValidatorTest {
         ParserArgument parserArgument = argumentConstructor.validate(argumentsMap);
 
 
-        assertEquals(parserArgument.getAccesslog(), "access.log");
+        assertEquals(parserArgument.getAccessLog(), "access.log");
         assertEquals(parserArgument.getStartDate(), "2017-01-01.13:00:00");
         assertEquals(parserArgument.getDuration(), "hourly");
         assertEquals(parserArgument.getThreshold(), "100");

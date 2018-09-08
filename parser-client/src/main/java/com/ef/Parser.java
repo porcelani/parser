@@ -37,7 +37,7 @@ public class Parser {
 
 
     private static void post(ParserArgument arguments) {
-        FileSystemResource resource = new FileSystemResource(arguments.getAccesslog());
+        FileSystemResource resource = new FileSystemResource(arguments.getAccessLog());
 
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
         map.add("file", resource);

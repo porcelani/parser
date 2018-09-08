@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import parser.entity.Log;
+import parser.utils.DateUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -58,16 +59,8 @@ public class LogParserService implements LogService {
     }
 
     @Override
-    public Collection<Object> search(String startDate, String duration, String threshold) throws ParseException {
-
-        //TODO
-        //convert Date
-        //calculate dateTo
-        SimpleDateFormat formatter = new SimpleDateFormat(Log.DATE_FORMAT_PARTTERN);
-        Date dateFrom = formatter.parse("2017-01-01 13:00:00.000");
-        Date dateTo = formatter.parse("2017-01-01 14:00:00.000");
-
-
-        return logRepository.findIPsThatModeMoreThanACertainNumberOfRequestsForAGivenTimePeriod(dateFrom, dateTo, Integer.valueOf(threshold));
+    public Collection<Object> search(Date startDate, Integer durationInHours, Integer threshold) throws ParseException {
+        Date endDate = DateUtils.addHours(startDate, durationInHours);
+        return logRepository.findIPsThatModeMoreThanACertainNumberOfRequestsForAGivenTimePeriod(startDate, endDate, threshold);
     }
 }

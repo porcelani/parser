@@ -15,7 +15,7 @@ public class ParserArgument {
     private ParserArgument() {
     }
 
-    public String getAccesslog() {
+    public String getAccessLog() {
         return accesslog;
     }
 
