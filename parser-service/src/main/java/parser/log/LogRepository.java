@@ -19,4 +19,5 @@ public interface LogRepository extends CrudRepository<Log, Integer> {
     @Query(nativeQuery = true)
     Collection<Log> findRequestsMadeByAGivenIP(@Param("searchIP") String searchIP);
 
+    void deleteByMd5(String md5);
 }

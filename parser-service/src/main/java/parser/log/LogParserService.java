@@ -27,7 +27,7 @@ public class LogParserService implements LogService {
     private LogRepository logRepository;
 
     @Override
-    public void save(MultipartFile file) throws IOException, ParseException {
+    public void save(MultipartFile file, String md5) throws IOException, ParseException {
         InputStream inputStream = file.getInputStream();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
@@ -47,6 +47,7 @@ public class LogParserService implements LogService {
             newLog.setRequest(split[2]);
             newLog.setStatus(valueOf(split[3]));
             newLog.setAgent(split[4]);
+            newLog.setMd5(md5);
             list.add(newLog);
 
             if (count % 1000 == 0) {

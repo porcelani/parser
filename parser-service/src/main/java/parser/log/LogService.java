@@ -9,7 +9,7 @@ import java.util.Date;
 
 public interface LogService {
 
-    void save(MultipartFile file) throws IOException, ParseException;
+    void save(MultipartFile file, String md5) throws IOException, ParseException;
 
     Collection<Object> search(Date startDate, Integer durationInHours, Integer threshold) throws ParseException;
 }

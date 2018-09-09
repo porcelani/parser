@@ -1,8 +1,9 @@
 package parser.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
@@ -18,6 +19,7 @@ public class Log {
     private String request;
     private Integer status;
     private String agent;
+    private String md5;
 
     public Integer getId() {
         return id;
@@ -65,6 +67,14 @@ public class Log {
 
     public void setAgent(String agent) {
         this.agent = agent;
+    }
+
+    public String getMd5() {
+        return md5;
+    }
+
+    public void setMd5(String md5) {
+        this.md5 = md5;
     }
 }
 
