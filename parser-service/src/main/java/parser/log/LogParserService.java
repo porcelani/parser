@@ -37,6 +37,7 @@ public class LogParserService implements LogService {
         int count = 0;
 
 
+        //TODO use parallelism to improve upload
         while ((line = bufferedReader.readLine()) != null) {
             count++;
 

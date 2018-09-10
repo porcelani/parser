@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class ArgumentValidatorTest {
 
     private ArgumentValidator argumentConstructor;
-    public static final String USAGE_MESSAGE = "\n" +
+    private static final String USAGE_MESSAGE = "\n" +
             "Usage:  java -cp \"parser.jar\" com.ef.Parser --accesslog=[/path/to/file.log] --startDate=[yyyy-MM-dd.HH:mm:ss] --duration=[hourly/daily] --threshold=[integer] \n" +
             "\n" +
             "Required Arguments:\n" +

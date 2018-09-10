@@ -12,6 +12,7 @@
     <description>Parser Log</description>
 
     <modules>
+        <module>parser-common</module>
         <module>parser-service</module>
         <module>parser-client</module>
     </modules>

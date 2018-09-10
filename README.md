@@ -1,5 +1,7 @@
 # Parser Application
 
+![parser-application](parser-application.png)
+
 [Requirements](requirements.md)
 
 

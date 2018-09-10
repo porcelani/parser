@@ -11,6 +11,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.System.out;
 
@@ -46,8 +48,7 @@ public class Parser {
         map.add("threshold", arguments.getThreshold());
 
 
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(URL_STRING, map, String.class);
+        ResponseEntity response = postCall(map);
 
         if (response.getStatusCodeValue() != 200) {
             throw new RuntimeException("Failed : error code : " + response.getStatusCode());
@@ -55,5 +56,31 @@ public class Parser {
 
         out.println(response.getBody());
 
+    }
+
+    private static ResponseEntity postCall(Map map){
+
+        Runnable runnable = () -> {
+            try {
+                TimeUnit.SECONDS.sleep(3);
+                out.println("Sending a file for the first time to be reviewed may take a few seconds. Wait.\n");
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
+
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.postForEntity(URL_STRING, map, String.class);
+
+        if(thread.isAlive()){
+            thread.stop();
+        }
+
+        return response;
     }
 }

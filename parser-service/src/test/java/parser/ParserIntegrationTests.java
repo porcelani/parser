@@ -17,7 +17,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 import parser.log.LogRepository;
 import parser.log.LogService;
+import parser.storage.FileCacheRepository;
 import parser.storage.StorageService;
+import parser.utils.GetMD5ForFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.util.Lists.newArrayList;
@@ -35,10 +37,16 @@ public class ParserIntegrationTests {
     private LogRepository logRepository;
 
     @Autowired
+    private StorageService storageService;
+
+    @Autowired
     private LogService logService;
 
-    @MockBean
-    private StorageService storageService;
+    @Autowired
+    private FileCacheRepository fileCacheRepository;
+
+    @Autowired
+    private GetMD5ForFile getMD5ForFile;
 
     @LocalServerPort
     private int port;
@@ -63,9 +71,6 @@ public class ParserIntegrationTests {
 
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
-        then(storageService).should().store(any(MultipartFile.class));
         assertThat(newArrayList(logRepository.findAll()).size()).isEqualTo(10);
-
-
     }
 }
